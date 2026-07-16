@@ -1,6 +1,6 @@
-// api/lead.js — Horizon Dental lead relay (Vercel serverless function)
+// api/lead.js — Horizon Dental lead relay (Vercel serverless function) — GOOGLE ADS project
 // ---------------------------------------------------------------------------
-// Receives the booking-form POST from the veneers landing pages and forwards it
+// Receives the consultation-form POST from the Google Ads landing pages and forwards it
 // to the SmileOx CRM intake as a JSON email (plain-text body), per the SmileOx
 // "Integrate Website Form Intake" spec. Delivery is via the SMTP2GO HTTP API,
 // which transmits to the recipient mail server over TLS.
@@ -27,7 +27,7 @@
 // ---------------------------------------------------------------------------
 
 const DEFAULT_INTAKE =
-  "veneers-fb-ad-landing-page+243d19bc-3935-4949-976d-5dd12525eef2@intake.smileox.com.au";
+  "veneers-google-ads+37e24721-df2f-46eb-a1df-622a05f2903c@intake.smileox.com.au";
 
 module.exports = async (req, res) => {
   const ALLOW_ORIGIN = process.env.ALLOW_ORIGIN || "*";
