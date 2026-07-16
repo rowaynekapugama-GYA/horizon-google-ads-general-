@@ -295,6 +295,16 @@ footer{ padding:clamp(40px,6vh,72px) clamp(20px,5vw,48px) calc(2.6rem + var(--do
 .field input::placeholder{ color:var(--mist-dim); }
 .field input:focus{ border-color:var(--aqua); background:rgba(255,255,255,.09); }
 .field.err input{ border-color:#d98f7a; }
+.field-label .opt{ font-weight:500; color:var(--mist-dim); }
+.chips{ border:0; padding:0; margin:0 0 1rem; }
+.chips legend{ padding:0; }
+.chip-row{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.45rem; }
+.chip{ font:inherit; font-size:.86rem; font-weight:600; color:var(--mist); background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.2); border-radius:999px; padding:.5em 1.05em; cursor:pointer;
+  transition:border-color .2s, background .2s, color .2s; }
+.chip:hover{ border-color:var(--aqua); }
+.chip:focus-visible{ outline:2px solid var(--aqua); outline-offset:2px; }
+.chip.on{ background:rgba(207,196,166,.2); border-color:var(--aqua); color:#fff; }
 .hp{ position:absolute; left:-9999px; opacity:0; pointer-events:none; }
 .form-note{ font-size:.78rem; color:var(--mist-dim); margin:.8rem 0 0; }
 .form-error{ display:none; color:#e8b5a4; font-size:.9rem; margin-top:.8rem; }
@@ -515,6 +525,24 @@ footer{ padding:clamp(40px,6vh,72px) clamp(20px,5vw,48px) calc(2.6rem + var(--do
             <input type="email" name="email" autocomplete="email" placeholder="you@email.com" required></label>
           <label class="field" data-field="phoneNumber"><span class="field-label">Mobile <span class="req">*</span></span>
             <input type="tel" name="phoneNumber" autocomplete="tel" placeholder="04xx xxx xxx" required></label>
+          <fieldset class="chips" data-chips="smileGoals" data-multi>
+            <legend class="field-label">What would you like to improve? <span class="opt">(optional — pick any)</span></legend>
+            <div class="chip-row">
+              <button type="button" class="chip">Discoloured teeth</button>
+              <button type="button" class="chip">Chipped or worn</button>
+              <button type="button" class="chip">Gaps</button>
+              <button type="button" class="chip">Uneven or crooked</button>
+              <button type="button" class="chip">Not sure</button>
+            </div>
+          </fieldset>
+          <fieldset class="chips" data-chips="timeframe">
+            <legend class="field-label">When are you looking to start? <span class="opt">(optional)</span></legend>
+            <div class="chip-row">
+              <button type="button" class="chip">Ready now</button>
+              <button type="button" class="chip">Next 1–3 months</button>
+              <button type="button" class="chip">Just researching</button>
+            </div>
+          </fieldset>
           <label class="hp" aria-hidden="true">Company<input type="text" name="company" tabindex="-1" autocomplete="off"></label>
           <button class="btn btn-primary btn-lg" type="submit" style="width:100%;">Request my consultation</button>
           <p class="form-error" role="alert">Something went wrong sending your details — please try again, or tap Call now and we'll book you in over the phone.</p>
@@ -613,7 +641,7 @@ footer{ padding:clamp(40px,6vh,72px) clamp(20px,5vw,48px) calc(2.6rem + var(--do
       <p>Park House, Level 14, 187–191 Macquarie Street, Sydney NSW 2000 · <a href="tel:+61468045083" style="color:inherit;">Call us</a></p>
       <p>All fees shown are indicative "from" prices before any health fund rebate and are subject to change; a personalised quote is provided at your consultation, where suitability for treatment is assessed. Zip payment plans are subject to provider terms and approval. Any dental procedure carries risks and benefits — before proceeding, you should seek advice from an appropriately qualified health practitioner.</p>
       <p class="reg">Care at Horizon Dental is provided by registered dental practitioners. Principal Dentist: Dr David Benjamin Kozor, B.D.Sc (CSU) — AHPRA Reg. No. DEN0001855548.</p>
-      <p>© Horizon Dental, All rights reserved · Website Design by <a href="https://generateyouraudience.com/" target="_blank" rel="noopener">Generate Your Audience</a> · <a href="index.html" style="color:inherit;text-decoration:none;opacity:.55;">General page</a> · <a href="emergency-dentist-sydney.html" style="color:inherit;text-decoration:none;opacity:.55;">Emergency page</a></p>
+      <p>© Horizon Dental, All rights reserved · Website Design by <a href="https://generateyouraudience.com/" target="_blank" rel="noopener">Generate Your Audience</a> · <a href="index.html" style="color:inherit;text-decoration:none;opacity:.55;">General page</a> · <a href="emergency-dentist-sydney.html" style="color:inherit;text-decoration:none;opacity:.55;">Emergency page</a> · <a href="invisalign-sydney.html" style="color:inherit;text-decoration:none;opacity:.55;">Invisalign page</a></p>
     </div>
   </div>
 </footer>
@@ -645,6 +673,22 @@ footer{ padding:clamp(40px,6vh,72px) clamp(20px,5vw,48px) calc(2.6rem + var(--do
   var btn = form.querySelector('button[type="submit"]');
   var errBox = form.querySelector(".form-error");
 
+  /* option chips (multi-select when data-multi is set) */
+  form.querySelectorAll(".chips").forEach(function(group){
+    var multi = group.hasAttribute("data-multi");
+    group.querySelectorAll(".chip").forEach(function(chip){
+      chip.addEventListener("click", function(){
+        if (!multi) group.querySelectorAll(".chip.on").forEach(function(o){ if (o !== chip) o.classList.remove("on"); });
+        chip.classList.toggle("on");
+      });
+    });
+  });
+  function chips(name){
+    var group = form.querySelector('[data-chips="' + name + '"]');
+    if (!group) return "";
+    return Array.prototype.map.call(group.querySelectorAll(".chip.on"), function(c){ return c.textContent.trim(); }).join(", ");
+  }
+
   form.addEventListener("submit", function(ev){
     ev.preventDefault();
     errBox.classList.remove("show");
@@ -661,6 +705,8 @@ footer{ padding:clamp(40px,6vh,72px) clamp(20px,5vw,48px) calc(2.6rem + var(--do
       if (!valid) ok = false;
       data[name] = val;
     });
+    data.smileGoals = chips("smileGoals");
+    data.timeframe = chips("timeframe");
     data.company = (form.querySelector('[name="company"]').value || "").trim();
     if (!ok) return;
 

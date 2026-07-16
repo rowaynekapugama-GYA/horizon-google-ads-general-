@@ -26,8 +26,10 @@
 // with every field intact.
 // ---------------------------------------------------------------------------
 
-const DEFAULT_INTAKE =
+const VENEERS_INTAKE =
   "veneers-google-ads+37e24721-df2f-46eb-a1df-622a05f2903c@intake.smileox.com.au";
+const ORTHO_INTAKE =
+  "ortho-google-ads-landing+6309f405-faf0-424c-9903-6b94a1549b63@intake.smileox.com.au";
 
 module.exports = async (req, res) => {
   const ALLOW_ORIGIN = process.env.ALLOW_ORIGIN || "*";
@@ -48,7 +50,15 @@ module.exports = async (req, res) => {
 
   // ---- required configuration ----
   const API_KEY = process.env.SMTP2GO_API_KEY;
-  const TO = process.env.INTAKE_ADDRESS || DEFAULT_INTAKE;
+  // Each treatment has its own SmileOx intake: Invisalign/ortho submissions
+  // (source contains "invisalign" or "ortho") go to the ortho-google-ads-landing
+  // intake; everything else goes to the veneers-google-ads intake. Env vars
+  // INTAKE_ADDRESS / INTAKE_ADDRESS_INVISALIGN override either without a deploy.
+  const src = String(body.source || "").toLowerCase();
+  const isOrtho = src.indexOf("invisalign") !== -1 || src.indexOf("ortho") !== -1;
+  const TO = isOrtho
+    ? (process.env.INTAKE_ADDRESS_INVISALIGN || ORTHO_INTAKE)
+    : (process.env.INTAKE_ADDRESS || VENEERS_INTAKE);
   const FROM = process.env.SMTP_FROM || "Horizon Dental <no-reply@horizondental.com.au>";
   if (!API_KEY) { res.status(500).json({ ok: false, error: "Server not configured", missing: ["SMTP2GO_API_KEY"] }); return; }
 
