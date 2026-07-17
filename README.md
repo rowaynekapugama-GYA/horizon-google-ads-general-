@@ -22,7 +22,7 @@ Routing is built in: Invisalign/ortho submissions go to the **ortho-google-ads-l
 (`ortho-google-ads-landing+6309f405-faf0-424c-9903-6b94a1549b63@intake.smileox.com.au`);
 veneers submissions go to the **veneers-google-ads** intake. `INTAKE_ADDRESS` (veneers) and
 `INTAKE_ADDRESS_INVISALIGN` (ortho) override either without a code change.
-Env vars: `SMTP2GO_API_KEY` (required), `INTAKE_ADDRESS` / `SMTP_FROM` / `ALLOW_ORIGIN` (optional).
+The SMTP2GO API key is baked into `lead.js`, so no env vars are required — `SMTP2GO_API_KEY`, `INTAKE_ADDRESS`, `INTAKE_ADDRESS_INVISALIGN`, `SMTP_FROM` and `ALLOW_ORIGIN` all remain available as optional overrides. Only the HTTP API key is used; the SMTP username/password are not needed by these relays.
 Test after deploy: `GET /api/lead` returns `{"ok":false,"error":"Method not allowed"}` when live; then submit the
 form once and confirm the lead appears in the SmileOx pipeline.
 

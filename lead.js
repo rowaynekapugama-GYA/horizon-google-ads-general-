@@ -15,7 +15,7 @@
 // SET THESE as Environment Variables in Vercel, then redeploy:
 //   Project → Settings → Environment Variables
 //
-//   SMTP2GO_API_KEY   (required)  Your SMTP2GO API key, e.g. api-XXXXXXXXXXXX
+//   SMTP2GO_API_KEY   (optional)  Overrides the built-in SMTP2GO API key
 //   INTAKE_ADDRESS    (optional)  Defaults to the SmileOx veneers intake below.
 //   SMTP_FROM         (optional)  From header. Default: Horizon Dental <no-reply@horizondental.com.au>
 //   ALLOW_ORIGIN      (optional)  CORS origin. Default: "*" (same-origin needs nothing)
@@ -30,6 +30,11 @@ const VENEERS_INTAKE =
   "veneers-google-ads+37e24721-df2f-46eb-a1df-622a05f2903c@intake.smileox.com.au";
 const ORTHO_INTAKE =
   "ortho-google-ads-landing+6309f405-faf0-424c-9903-6b94a1549b63@intake.smileox.com.au";
+
+// SMTP2GO API key. Baked in as a fallback so the relay works with zero Vercel
+// config; the SMTP2GO_API_KEY env var still overrides it (set the env var and
+// remove this default if the repo is ever shared beyond GYA).
+const SMTP2GO_KEY = process.env.SMTP2GO_API_KEY || "api-83934900C27E40AEB580004F2897AE4F";
 
 module.exports = async (req, res) => {
   const ALLOW_ORIGIN = process.env.ALLOW_ORIGIN || "*";
@@ -49,7 +54,7 @@ module.exports = async (req, res) => {
   if (body.company) { res.status(200).json({ ok: true }); return; }
 
   // ---- required configuration ----
-  const API_KEY = process.env.SMTP2GO_API_KEY;
+  const API_KEY = SMTP2GO_KEY;
   // Each treatment has its own SmileOx intake: Invisalign/ortho submissions
   // (source contains "invisalign" or "ortho") go to the ortho-google-ads-landing
   // intake; everything else goes to the veneers-google-ads intake. Env vars
@@ -60,7 +65,6 @@ module.exports = async (req, res) => {
     ? (process.env.INTAKE_ADDRESS_INVISALIGN || ORTHO_INTAKE)
     : (process.env.INTAKE_ADDRESS || VENEERS_INTAKE);
   const FROM = process.env.SMTP_FROM || "Horizon Dental <no-reply@horizondental.com.au>";
-  if (!API_KEY) { res.status(500).json({ ok: false, error: "Server not configured", missing: ["SMTP2GO_API_KEY"] }); return; }
 
   // ---- assemble the SmileOx JSON payload ----
   // Core fields first, then pass through any extra scalar fields the form
