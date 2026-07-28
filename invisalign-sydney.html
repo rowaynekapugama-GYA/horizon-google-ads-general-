@@ -158,7 +158,8 @@ section{ padding:clamp(64px,9vh,110px) clamp(20px,5vw,48px); }
 #hero{ position:relative; isolation:isolate; min-height:min(92vh,860px); display:flex; align-items:center;
   padding-top:calc(var(--bar-h) + clamp(40px,7vh,72px)); }
 .hero-video-wrap{ position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; background:var(--navy-900); }
-.hero-video-wrap iframe{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+.hero-video-wrap{ background-image:url("reception.webp"); background-size:cover; background-position:center; }
+.hero-video-wrap iframe{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; transition:opacity 1.2s ease;
   width:max(100vw,177.78vh); height:max(100vh,56.25vw); border:0; pointer-events:none; }
 .hero-veil{ position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
@@ -365,9 +366,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- ================= HERO ================= -->
   <section id="hero">
-    <div class="hero-video-wrap" aria-hidden="true">
-      <iframe src="https://player.vimeo.com/video/1203831114?background=1&autopause=0&dnt=1" allow="autoplay; fullscreen; picture-in-picture" title="Horizon Dental background film" tabindex="-1"></iframe>
-    </div>
+    <div class="hero-video-wrap" aria-hidden="true" data-video="https://player.vimeo.com/video/1203831114?background=1&autopause=0&dnt=1"></div>
     <div class="hero-veil" aria-hidden="true"></div>
     <div class="inner">
       <p class="eyebrow reveal">Macquarie Street · Sydney CBD</p>
@@ -746,5 +745,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 })();
 </script>
 
+<script>
+/* Load the hero film only after the page is interactive — keeps mobile load fast
+   (the static photo shows beneath the veil until the video fades in). */
+window.addEventListener("load", function(){
+  document.querySelectorAll(".hero-video-wrap[data-video]").forEach(function(wrap){
+    var f = document.createElement("iframe");
+    f.src = wrap.getAttribute("data-video");
+    f.setAttribute("allow", "autoplay; fullscreen; picture-in-picture");
+    f.title = "Horizon Dental background film"; f.tabIndex = -1;
+    f.addEventListener("load", function(){ f.style.opacity = "1"; });
+    wrap.appendChild(f);
+  });
+});
+</script>
 </body>
 </html>
