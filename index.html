@@ -293,6 +293,11 @@ footer{ padding:clamp(40px,6vh,72px) clamp(20px,5vw,48px) calc(2.6rem + var(--do
 .d1{ transition-delay:.08s; } .d2{ transition-delay:.16s; } .d3{ transition-delay:.24s; }
 @media (prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; transition:none; } html{ scroll-behavior:auto; } }
 </style>
+<style>
+/* Three dentists */
+.dentists{ grid-template-columns:repeat(3,1fr); }
+@media (max-width:960px){ .dentists{ grid-template-columns:1fr; } }
+</style>
 </head>
 <body>
 
@@ -424,10 +429,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p>Born and raised in Sydney, Dr Kozor has been in private practice since 2013, with a strong focus on aesthetic dentistry. What matters most to David is that patients feel confident and happy about their teeth — and genuinely enjoy their time at Horizon Dental.</p>
           </div>
         </article>
+        <article class="glass dentist-card reveal d2">
+          <img src="stewart-beggs.webp" alt="Dr Stewart Beggs, Dentist at Horizon Dental" loading="lazy">
+          <div class="body">
+            <p class="role">Dentist</p>
+            <h3>Dr Stewart Beggs</h3>
+            <p class="quals">Clinical Dentistry with Merit, Newcastle University (2015)</p>
+            <p>Originally from Northern Ireland, Dr Stewart graduated with merit in Clinical Dentistry from Newcastle University in 2015 and spent more than a decade in private practice in London, focusing on aesthetic and restorative dentistry, before relocating to Sydney. He has a special interest in cosmetic dentistry and in restorations that look completely natural.</p>
+          </div>
+        </article>
         <article class="glass dentist-card reveal d3">
           <img src="https://smile-search-production-uploads-kmfcmkcr.s3.ap-southeast-2.amazonaws.com/images-gallery/1f0d3bf8-58ab-4e6b-8742-ef2bafb07dcd/horizon-dental/1784164522254-KbtRkdowbI7XzJOxUn-bV.png" alt="Dr Lucky Masilamani, Associate Dentist at Horizon Dental" loading="lazy">
           <div class="body">
-            <p class="role">Associate Dentist</p>
+            <p class="role">Dentist</p>
             <h3>Dr Lucky Masilamani</h3>
             <p class="quals">B.D.S (University of Otago)</p>
             <blockquote>"I love building genuine relationships with patients and making every visit calm and comfortable."</blockquote>

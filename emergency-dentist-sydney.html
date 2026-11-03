@@ -304,6 +304,11 @@ footer{ padding:clamp(40px,6vh,72px) clamp(20px,5vw,48px) calc(2.6rem + var(--do
 .now-chip b{ display:block; color:#fff; font-size:1rem; margin-bottom:.15rem; }
 .step-num{ font-family:"Fraunces",serif; font-size:2rem; color:var(--aqua); line-height:1; display:block; margin-bottom:.7rem; }
 </style>
+<style>
+/* Three dentists */
+.dentists{ grid-template-columns:repeat(3,1fr); }
+@media (max-width:960px){ .dentists{ grid-template-columns:1fr; } }
+</style>
 </head>
 <body>
 
@@ -452,10 +457,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p>Born and raised in Sydney and in private practice since 2013, Dr Kozor's focus is simple: get you comfortable quickly, explain what's happening in plain language, and make sure you leave knowing exactly what comes next.</p>
           </div>
         </article>
+        <article class="glass dentist-card reveal d2">
+          <img src="stewart-beggs.webp" alt="Dr Stewart Beggs, Dentist at Horizon Dental" loading="lazy">
+          <div class="body">
+            <p class="role">Dentist</p>
+            <h3>Dr Stewart Beggs</h3>
+            <p class="quals">Clinical Dentistry with Merit, Newcastle University (2015)</p>
+            <p>Originally from Northern Ireland, Dr Stewart brings more than a decade of private practice experience from London, with a focus on restorative dentistry: repairing and protecting damaged teeth so they look and work naturally again.</p>
+          </div>
+        </article>
         <article class="glass dentist-card reveal d3">
           <img src="https://smile-search-production-uploads-kmfcmkcr.s3.ap-southeast-2.amazonaws.com/images-gallery/1f0d3bf8-58ab-4e6b-8742-ef2bafb07dcd/horizon-dental/1784164522254-KbtRkdowbI7XzJOxUn-bV.png" alt="Dr Lucky Masilamani, Associate Dentist at Horizon Dental" loading="lazy">
           <div class="body">
-            <p class="role">Associate Dentist</p>
+            <p class="role">Dentist</p>
             <h3>Dr Lucky Masilamani</h3>
             <p class="quals">B.D.S (University of Otago)</p>
             <p>A University of Otago graduate practising since 2016, Dr Lucky is known for calm, reassuring care — especially with nervous patients — and takes the time to make even an emergency visit feel unrushed.</p>
