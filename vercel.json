@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/dentist-sydney-cbd", "destination": "/", "permanent": true },
+    { "source": "/dentist-sydney-cbd.html", "destination": "/", "permanent": true }
+  ]
+}
