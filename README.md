@@ -43,7 +43,7 @@ All calls on every page dial the tracking line `+61468045083`, hidden behind "Ca
 
 ## Offer pages and booking conversion (Nov 2026)
 - The $199 and $499 pages and booking-confirmed.html carry the same GTM, Google tag, call conversion and Vimeo hero film as the other pages, plus the Meta Pixel `27515145741502546` (Horizon Landing Pixel).
-- Praktika redirect URL: `https://book.horizondental.com.au/booking-confirmed.html` (delay 3 seconds, booking request ID ticked). Leave Praktika's GTM, GA4, AdWords and Facebook Pixel fields blank so nothing double counts.
-- booking-confirmed.html fires once per booking ID: dataLayer `praktika_booking_confirmed` (booking_id / transaction_id), Meta `Schedule` (eventID = booking ID) and the Google Ads booking conversion once `AW_BOOKING_LABEL` is filled in (search the page for `send_to`).
+- Praktika redirect URL: `https://book.horizondental.com.au/booking-confirmed.html` (delay 3 seconds, booking request ID ticked). Praktika holds GTM-KX47H9PZ, GA4 G-NJXLRE6VZT, the Meta Pixel and (once created) the Google Ads booking label.
+- Booking conversions for Meta (Pixel 27515145741502546) and Google Ads (conversion ID 10985216486 + the booking label) are fired by Praktika itself, entered in Praktika's settings. booking-confirmed.html only pushes the dataLayer event `praktika_booking_confirmed` (booking_id / transaction_id) and a Meta PageView, so nothing double counts. Leave `AW_BOOKING_LABEL` blank in this page while Praktika holds the label.
 - Book online clicks on the offer pages push `book_online_click` with `offer` = `new_patient_199` / `zoom_whitening_499`.
 - `vercel.json` redirects the retired `dentist-sydney-cbd` page to `/`.

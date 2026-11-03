@@ -13,7 +13,8 @@
   if (!id){ p.forEach(function(v,k){ if (!id && v && /id$/i.test(k)) id = v; }); }
   window.hdBookingId = id;
   var key = "hd_booking_" + (id || ("noid_" + new Date().toDateString()));
-  var done = false; try { done = !!localStorage.getItem(key); } catch(e){}
+  var done = p.has("preview"); /* ?preview skips all conversions, for checking the page */
+  try { done = done || !!localStorage.getItem(key); } catch(e){}
   window.hdFireSchedule = !done;
   window.dataLayer = window.dataLayer || [];
   if (!done){
@@ -61,7 +62,6 @@ t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','27515145741502546');
 fbq('track','PageView');
-if(window.hdFireSchedule){ fbq('track','Schedule',{},window.hdBookingId?{eventID:window.hdBookingId}:undefined); }
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=27515145741502546&ev=PageView&noscript=1"/></noscript>
 <!-- End Meta Pixel -->
