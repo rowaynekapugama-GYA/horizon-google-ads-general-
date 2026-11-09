@@ -213,10 +213,11 @@ section{ padding:clamp(64px,9vh,110px) clamp(20px,5vw,48px); }
 .big-stat + p{ color:var(--mist); font-size:.95rem; }
 
 /* ---------- dentists ---------- */
-.dentists{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-top:2.2rem; }
-@media (max-width:860px){ .dentists{ grid-template-columns:1fr; } }
+.dentists{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-top:2.2rem; max-width:900px; margin-inline:auto; }
+@media (max-width:860px){ .dentists{ grid-template-columns:1fr; max-width:420px; } }
 .dentist-card{ overflow:hidden; display:flex; flex-direction:column; }
-.dentist-card img{ display:block; width:100%; height:340px; object-fit:cover; object-position:center 18%; }
+.dentist-card img{ display:block; width:100%; aspect-ratio:760/900; height:auto;
+  object-fit:cover; object-position:center top; background:#f3efe4; }
 .dentist-card .body{ padding:1.5rem 1.5rem 1.7rem; display:flex; flex-direction:column; flex:1; }
 .dentist-card .role{ font-size:.76rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--aqua); margin:0 0 .4rem; }
 .dentist-card h3{ margin-bottom:.15rem; font-size:1.45rem; }
@@ -486,7 +487,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="dentists">
         <article class="glass dentist-card reveal d2">
-          <img src="https://smile-search-production-uploads-kmfcmkcr.s3.ap-southeast-2.amazonaws.com/images-gallery/1f0d3bf8-58ab-4e6b-8742-ef2bafb07dcd/horizon-dental/1784163173256-CpJ0QcZRYsV1XrNOWIP4G.png" alt="Dr David Kozor, Principal Dentist at Horizon Dental" loading="lazy">
+          <img src="https://horizondental.com.au/wp-content/uploads/2022/08/Horizon-Dental_DrDavidKozor.png" alt="Dr David Kozor, Principal Dentist at Horizon Dental" loading="lazy">
           <div class="body">
             <p class="role">Principal Dentist</p>
             <h3>Dr David Kozor</h3>
